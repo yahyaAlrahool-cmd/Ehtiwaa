@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>Ehtiwaa</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#02222C;color:#F1EDE5;font-family:system-ui,"Segoe UI",Tahoma,sans-serif}
+body{display:flex}
+#rail{width:78px;background:#011820;border-inline-end:1px solid rgba(179,146,96,.35);display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 0}
+.t{position:relative;width:60px;padding:10px 0 8px;border-radius:14px;border:1px solid transparent;background:none;color:#b9c4c6;cursor:pointer;font:inherit;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.t i{font-style:normal;font-size:22px;line-height:1}
+.t:hover{background:rgba(255,255,255,.05)}.t.on{background:#B39260;color:#02222C;font-weight:700}
+.b{position:absolute;top:2px;inset-inline-start:4px;min-width:18px;height:18px;border-radius:9px;background:#e5484d;color:#fff;font-size:11px;display:grid;place-items:center;padding:0 4px}
+.b[hidden]{display:none}
+#views{flex:1;position:relative}
+webview{position:absolute;inset:0;width:100%;height:100%;border:0;display:none;background:#fff}
+webview.on{display:flex}
+#hint{position:absolute;bottom:8px;inset-inline-end:12px;font-size:11px;color:#7f9097}
+</style></head><body>
+<div id="rail"></div><div id="views"></div>
+<script>
+// [id, الاسم, الأيقونة, الرابط الابتدائي]
+const TABS=[
+ ['hub','Hub','◈',null],
+ ['wa','واتساب','✆','https://web.whatsapp.com/'],
+ ['ig','إنستغرام','◎','https://www.instagram.com/direct/inbox/'],
+ ['x','X','✕','https://x.com/messages'],
+ ['tt','تيك توك','♪','https://www.tiktok.com/tiktokstudio'],
+ ['cl','Claude','✺','https://claude.ai/new'],
+ ['in','لينكدإن','in','https://www.linkedin.com/messaging/'],
+ ['tg','تيليغرام','✈','https://web.telegram.org/']
+];
+let GP='';const rail=document.getElementById('rail'),views=document.getElementById('views'),W={};
+function make(id,url){
+  if(W[id])return W[id];
+  const v=document.createElement('webview');
+  v.setAttribute('partition','persist:'+id);
+  v.setAttribute('allowpopups','');if(GP)v.setAttribute('preload',GP);
+  v.src=url;
+  v.addEventListener('page-title-updated',e=>{
+    const m=/^\((\d+)\)/.exec(e.title||'');
+    const b=document.querySelector('[data-b="'+id+'"]');
+    if(b){b.hidden=!m;b.textContent=m?m[1]:''}
+  });
+  views.appendChild(v);W[id]=v;return v;
+}
+function show(id,url){
+  const t=TABS.find(x=>x[0]==id);if(!t)return;
+  const v=make(id,url||t[3]);
+  if(url&&v.src!==url){try{v.loadURL(url)}catch(e){v.src=url}}
+  document.querySelectorAll('webview').forEach(w=>w.classList.toggle('on',w===v));
+  document.querySelectorAll('.t').forEach(b=>b.classList.toggle('on',b.dataset.id==id));
+}
+TABS.forEach(t=>{
+  const b=document.createElement('button');b.className='t';b.dataset.id=t[0];
+  b.innerHTML='<i>'+t[2]+'</i><span class="nm">'+t[1]+'</span><span class="b" data-b="'+t[0]+'" hidden></span>';
+  b.onclick=()=>show(t[0]);rail.appendChild(b);
+});
+Promise.all([window.desk.hubPath(),window.desk.guestPreload()]).then(([p,g])=>{GP=g;
+  W.hub=null;
+  const url='file:///'+p.replace(/\\/g,'/').replace(/^\/+/,'');
+  TABS[0][3]=url;show('hub',url);
+});
+window.desk.onOpen(d=>show(d.id,d.url));
+const NAMES_EN={hub:'Hub',wa:'WhatsApp',ig:'Instagram',x:'X',tt:'TikTok',cl:'Claude',in:'LinkedIn',tg:'Telegram'},NAMES_AR={};TABS.forEach(t=>NAMES_AR[t[0]]=t[1]);
+function setLang(l,first){
+  const f=()=>{const H=document.documentElement;H.lang=l;H.dir=l=='en'?'ltr':'rtl';
+    document.querySelectorAll('.t').forEach(b=>{b.querySelector('.nm').textContent=(l=='en'?NAMES_EN:NAMES_AR)[b.dataset.id]})};
+  if(!first&&document.startViewTransition)document.startViewTransition(f);else f();
+}
+window.desk.getLang().then(l=>setLang(l,true));window.desk.onLang(l=>setLang(l,false));
+</script></body></html>

@@ -1,0 +1,30 @@
+/* قائمة الأعمال: عدّل العناوين هنا. الملف المفتوح = المجلد/الرقم.pdf والصورة المصغرة = assets/thumbs/الرقم.webp */
+var WORKS=[
+["research","research-01","مقدمة في المخاطر","Introduction to Risks"],
+["research","research-02","تقنيات البناء الذكي","Smart Construction Technologies"],
+["research","research-03","أثر استخدام طريقة الإدارة بالأهداف على أداء الموظفين (القطاع الخاص)","The Impact of Management by Objectives on Employee Performance (Private Sector)"],
+["research","research-04","أهداف المعايير الدولية لإعداد التقارير المالية","Objectives of International Financial Reporting Standards"],
+["research","research-05","تأثير التسويق على دورة حياة المنتج في شركة تويوتا","The Impact of Marketing on the Product Life Cycle at Toyota"],
+["research","research-06","شرح حديث «خيركم من تعلم القرآن وعلمه»","Explanation of the Hadith “The Best of You Are Those Who Learn the Quran and Teach It”"],
+["research","research-07","مبادئ فايول في العمل عن بعد","Fayol’s Principles in Remote Work"],
+["presentations","pres-01","الفصل بين السلطات في بريطانيا: التوازن بين المرونة والحوكمة","Separation of Powers in the UK: Balancing Flexibility and Governance"],
+["presentations","pres-02","عرض مقترح مشروع","Project Proposal Presentation"],
+["presentations","pres-03","تقنيات البناء الذكي","Smart Construction Technologies"],
+["presentations","pres-04","الألعاب الأولمبية الحديثة","The Modern Olympic Games"],
+["presentations","pres-05","الجهاز العضلي","The Muscular System"],
+["presentations","pres-06","الصحة والسلامة المهنية في مصنع أقوات","Occupational Health and Safety at Aqwat Factory"],
+["presentations","pres-07","العوائد الاقتصادية لأولمبياد باريس 2024","Economic Returns of the Paris 2024 Olympics"],
+["presentations","pres-08","اللغة الدبلوماسية","Diplomatic Language"],
+["presentations","pres-09","المشاريع التجارية وكيفية نجاحها","Business Projects and How They Succeed"],
+["presentations","pres-10","الهجمات السيبرانية عبر وسائل التواصل الاجتماعي","Cyber Attacks via Social Media"],
+["presentations","pres-11","تصميم نموذج أعمال مستدام لشركة المراعي","Designing a Sustainable Business Model for Almarai"],
+["presentations","pres-12","FNGold لبيع الذهب والأحجار الكريمة","FNGold for Selling Gold and Gemstones"],
+["presentations","pres-13","مبادئ الإدارة الرياضية وصفات المدير الرياضي","Principles of Sports Management and Qualities of the Sports Manager"],
+["presentations","pres-14","مدخل إلى الصحافة","Introduction to Journalism"],
+["presentations","pres-15","تحليل أدوات وتقنيات التسويق الرقمي في مطعم كودو KUDU","Analysis of Digital Marketing Tools at KUDU Restaurant"],
+["invitations","inv-01","دعوة رقمية ١","Digital Invitation 1"],
+["invitations","inv-02","دعوة رقمية ٢","Digital Invitation 2"],
+["invitations","inv-03","دعوة رقمية ٣","Digital Invitation 3"],
+["invitations","inv-04","دعوة رقمية ٤","Digital Invitation 4"]
+];
+var TABS=[["all","الكل","All"],["research","البحوث","Research"],["presentations","العروض","Presentations"],["invitations","الدعوات","Invitations"]];
